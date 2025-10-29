@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebSpark ⚡</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --yellow: #FFD93D;
+      --peach: #FFBC80;
+      --pink: #D4A5D4;
+      --blue: #6C5CE7;
+      --dark: #0F0F1E;
+      --light: #F8F9FF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--light);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 15, 30, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 80px;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      background: linear-gradient(135deg, var(--yellow), var(--peach));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px var(--yellow)); }
+      to { filter: drop-shadow(0 0 15px var(--peach)); }
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      position: relative;
+      gap: 15px;
+    }
+
+    .nav-links li {
+      margin: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+      padding: 8px 20px;
+      position: relative;
+      transition: all 0.3s ease;
+      border-radius: 25px;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow);
+      background: rgba(255, 217, 61, 0.1);
+    }
+
+    .nav-links a.active {
+      color: var(--dark);
+      background: var(--yellow);
+      box-shadow: 0 5px 20px rgba(255, 217, 61, 0.4);
+    }
+
+    .nav-indicator {
+      display: none;
+    }
+
+    /* ===== Sections ===== */
+    .section {
+      padding: 120px 10%;
+      text-align: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 217, 61, 0.3), transparent);
+      border-radius: 50%;
+      top: -200px;
+      right: -200px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 188, 128, 0.3), transparent);
+      border-radius: 50%;
+      bottom: -150px;
+      left: -150px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.1); }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+      line-height: 1.2;
+      font-weight: 800;
+      z-index: 1;
+      animation: slideDown 1s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero span {
+      color: var(--yellow);
+      text-shadow: 0 0 20px rgba(255, 217, 61, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 650px;
+      z-index: 1;
+      opacity: 0.95;
+      line-height: 1.8;
+      animation: fadeIn 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, var(--yellow), var(--peach));
+      border: none;
+      padding: 16px 40px;
+      border-radius: 50px;
+      margin-top: 35px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 217, 61, 0.3);
+      z-index: 1;
+      color: var(--dark);
+      animation: fadeIn 1s ease 0.6s forwards;
+      opacity: 0;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 217, 61, 0.5);
+    }
+
+    /* ===== About Section ===== */
+    .about {
+      background: var(--light);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .about > p {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      color: #555;
+      font-size: 1.05rem;
+    }
+
+    .about-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      padding: 40px;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      max-width: 600px;
+      margin: 40px auto 0;
+      transition: all 0.3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(108, 92, 231, 0.15);
+    }
+
+    .about-card img {
+      width: 100px;
+      filter: drop-shadow(0 5px 15px rgba(108, 92, 231, 0.3));
+    }
+
+    .about-card div {
+      text-align: left;
+      max-width: 400px;
+    }
+
+    .about-card h3 {
+      color: var(--blue);
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+
+    .about-card p {
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* ===== Services Section ===== */
+    .services {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: #fff;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      font-weight: 700;
+    }
+
+    .service-grid {
+      display: flex;
+      justify-content: center;
+      gap: 35px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.98);
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 280px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--yellow), var(--peach));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .service-card h3 {
+      color: var(--blue);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      color: #555;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* ===== Contact Section ===== */
+    .contact {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: 40px auto;
+      gap: 20px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 18px 24px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      transition: all 0.3s ease;
+      color: #333;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 5px 20px rgba(255, 217, 61, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .contact-form button {
+      background: linear-gradient(135deg, var(--yellow), var(--peach));
+      border: none;
+      padding: 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--dark);
+      box-shadow: 0 10px 30px rgba(255, 217, 61, 0.3);
+    }
+
+    .contact-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 217, 61, 0.5);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--dark);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 30px;
+      text-align: center;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .section {
+        padding: 100px 5%;
+      }
+
+      .service-grid {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">⚡ WebSpark</div>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#services">Layanan</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="section hero">
+    <h1>Bangun Website Profesional Bersama <span>WebSpark ⚡</span></h1>
+    <p>Website modern, cepat, dan menarik untuk bisnismu. Desain bersih, performa tinggi, hasil maksimal.</p>
+    <button class="cta-btn">Mulai Sekarang</button>
+  </section>
+
+  <section id="about" class="section about">
+    <h2>Tentang Saya</h2>
+    <p> Saya adalah pengembang kreatif yang fokus membangun website modern dan efisien.
+    Dengan kombinasi desain elegan, performa tinggi, dan pengalaman pengguna yang optimal,
+    saya memastikan setiap project memiliki nilai estetika serta fungsionalitas maksimal.</p>
+    <div class="about-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="About Icon">
+      <div>
+        <h3>Kreatif & Inovatif</h3>
+        <p>Saya selalu berusaha menghadirkan solusi digital yang menarik dan bernilai,
+        dengan sentuhan personal agar setiap website terasa unik dan profesional.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section services">
+    <h2>Layanan Saya</h2>
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>Web Development</h3>
+        <p>Membangun website cepat, responsif, dan SEO-friendly.</p>
+      </div>
+      <div class="service-card">
+        <h3>UI/UX Design</h3>
+        <p>Mendesain tampilan antarmuka yang modern, intuitif, dan menarik.</p>
+      </div>
+      <div class="service-card">
+        <h3>Branding</h3>
+        <p>Membantu membangun identitas digital profesional untuk brand kamu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <h2>Hubungi Saya</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Nama Lengkap" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Pesan..." rows="4" required></textarea>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 WebSpark. Semua Hak Dilindungi.</p>
+  </footer>
+
+  <script>
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove("active"));
+        e.target.classList.add("active");
+        
+        const targetId = e.target.getAttribute("href");
+        document.querySelector(targetId).scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    // Smooth scroll observer
+    const sections = document.querySelectorAll('.section');
+    const observerOptions = {
+      threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
